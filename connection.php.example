@@ -1,0 +1,71 @@
+<?php
+
+// Copie este arquivo para connection.php e configure suas credenciais
+
+$db = array(
+	"Server"=>"localhost",
+	"user" => "seu_usuario",
+	"password"=>"sua_senha",
+	"db"=>"nome_do_banco");
+	
+$mysqli = new mysqli($db['Server'],$db['user'],$db['password'],$db['db']);
+mysqli_query($mysqli,"SET lc_time_names = 'pt_BR'");
+function prt($v) {	echo "<pre>"; print_r($v); echo "</pre>"; }
+
+try {
+	$pdo = new PDO("mysql:host=".$db['Server'].";dbname=" . $db['db'],$db['user'], $db['password']);
+	// echo "Conexão PDO com banco de dados realizada com sucesso.";
+} catch (PDOException $err) {
+	// echo "Erro: Conexão PDO com banco de dados não realizada com suucesso. Erro gerado " . $err->getMessage();
+}
+
+function safeQry ($query) {
+	global $db;
+	$con = new mysqli($db['Server'],$db['user'],$db['password'],$db['db']);
+	$ret =  mysqli_query($con,$query);
+	return $ret;
+	close($con);
+}
+function safeMulti ($query) {
+	global $db;
+	$con = new mysqli($db['Server'],$db['user'],$db['password'],$db['db']);
+	$ret = mysqli_multi_query($con,$query);
+	return $ret;
+	close($con);
+	
+}
+
+function qry($query) {
+	global $mysqli;
+	return mysqli_query($mysqli,$query);
+}
+
+
+function f_all_assoc($query) {
+	return mysqli_fetch_all(qry($query),MYSQLI_ASSOC);
+}
+function f_all_num($query) {
+	return mysqli_fetch_all(qry($query),MYSQLI_NUM);
+}
+
+function runPDO ($sql,$a) {
+	global $pdo;
+	$q = $pdo->prepare($sql); 
+	foreach ($a as $key => &$value) {
+		$q->bindParam($key,$value);
+	}
+	$q->execute();
+	return $q->fetchAll(PDO::FETCH_ASSOC);
+}
+function runPDO_NUM ($sql,$a) {
+	global $pdo;
+	$q = $pdo->prepare($sql);
+	foreach ($a as $key => &$value) { // testar foreach ($a as $key => $value) { https://www.php.net/manual/pt_BR/pdostatement.bindparam.php
+		$q->bindParam($key,$value);
+	}
+	$q->execute();
+	return $q->fetchAll(PDO::FETCH_NUM);
+}
+
+?>
+

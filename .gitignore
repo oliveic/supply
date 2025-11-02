@@ -1,0 +1,42 @@
+# Arquivos de configuração sensíveis
+connection.php
+*.env
+config.php
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Arquivos do editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+logs/
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.swp
+*~
+
+# Arquivos CSV temporários (se necessário)
+# items.csv
+# bom.csv
+
+# Vendor (se usar Composer no futuro)
+vendor/
+
+# Node modules (se usar npm no futuro)
+node_modules/
+package-lock.json
+
+# Arquivos de upload
+uploads/
+tmp/
+

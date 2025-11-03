@@ -1,0 +1,38 @@
+SELECT cod, 
+sum(p00) as s00,
+sum(p01) as s01,
+sum(p02) as s02,
+sum(p03) as s03,
+sum(p04) as s04,
+sum(p05) as s05,
+sum(p06) as s06,
+sum(p07) as s07,
+sum(p08) as s08,
+sum(p09) as s09,
+sum(p10) as s10,
+sum(p11) as s11,
+sum(p12) as s12,
+sum(p13) as s13,
+sum(p14) as s14,
+sum(p15) as s15,
+sum(p16) as s16,
+sum(p17) as s17,
+sum(p18) as s18,
+sum(p19) as s19,
+sum(p20) as s20,
+sum(p21) as s21,
+sum(p22) as s22,
+sum(p23) as s23
+FROM necessidades WHERE versao=202510 AND cod IN (
+    
+'16700562',
+'16700563',
+'16700564',
+'16700565',
+'16700566',
+'16700568',
+'16700569',
+'16700570',
+'16700571'
+
+) GROUP BY cod
